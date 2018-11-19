@@ -1,10 +1,6 @@
 pool:
   vmImage: ubuntu-16.04
 
-variables:
-  SOURCE_PATH: $(Build.SourcesDirectory)/html
-  AZURE_STORAGE_CONNECTION_STRING: $(CONNECTION_STRING)
-
 steps:
 - script: |
     if [ -z "$AZURE_STORAGE_CONNECTION_STRING" ]; then
@@ -13,3 +9,6 @@ steps:
     az extension add --name storage-preview
     az storage blob upload-batch -s $SOURCE_PATH -d '$web'
   displayName: Upload those blobs
+  env:
+    SOURCE_PATH: $(Build.SourcesDirectory)/html
+    AZURE_STORAGE_CONNECTION_STRING: $(CONNECTION_STRING)
