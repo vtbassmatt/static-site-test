@@ -3,7 +3,7 @@ pool:
 
 variables:
   SOURCE_PATH: $(Build.SourcesDirectory)/html
-  AZURE_STORAGE_CONNECTION_STRING: $(ConnectionString)
+  AZURE_STORAGE_CONNECTION_STRING: $(CONNECTION_STRING)
 
 steps:
 - script: |
