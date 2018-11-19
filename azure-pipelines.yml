@@ -3,10 +3,13 @@ pool:
 
 variables:
   SOURCE_PATH: $(Build.SourcesDirectory)/html
-  CONNECTION_STRING: $(ConnectionString)
+  AZURE_STORAGE_CONNECTION_STRING: $(ConnectionString)
 
 steps:
-- script: echo hello world
 - script: |
+    if [ -z "$AZURE_STORAGE_CONNECTION_STRING" ]; then
+      echo "!! Empty AZURE_STORAGE_CONNECTION_STRING"
+    fi
     az extension add --name storage-preview
-    az storage blob upload-batch -s $SOURCE_PATH -d '$web' --connection-string "$CONNECTION_STRING"
+    az storage blob upload-batch -s $SOURCE_PATH -d '$web'
+  displayName: Upload those blobs
