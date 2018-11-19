@@ -1,5 +1,14 @@
 pool:
   vmImage: ubuntu-16.04
 
+variables:
+  SUBSCRIPTION_ID: '72ba6ed6-28b1-425f-8688-d177bdb87e19'
+  SOURCE_PATH: $(Build.SourcesDirectory)/html
+  CONNECTION_STRING: $(ConnectionString)
+
 steps:
 - script: echo hello world
+- script: |
+    az extension add --name storage-preview
+    az account set --subscription $SUBSCRIPTION_ID
+    az storage blob upload-batch -s $SOURCE_PATH -d '$web' --connection-string $CONNECTION_STRING
