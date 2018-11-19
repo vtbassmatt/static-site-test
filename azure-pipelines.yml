@@ -3,9 +3,6 @@ pool:
 
 steps:
 - script: |
-    if [ -z "$AZURE_STORAGE_CONNECTION_STRING" ]; then
-      echo "!! Empty AZURE_STORAGE_CONNECTION_STRING"
-    fi
     az extension add --name storage-preview
     az storage blob upload-batch -s $SOURCE_PATH -d '$web'
   displayName: Upload those blobs
